@@ -1,0 +1,17 @@
+
+
+
+Intiate:
+  ☐ Frontend
+    ✔ Svelte setup @done(21-01-16 14:40)
+  ☐ Backend
+    ✔ Sapper Setup @done(21-01-16 14:40)
+    ✔ Database Pg setup @done(21-01-16 14:40)
+      wc-db -u postgres -p postgres
+    ☐ Create a docker file
+
+
+Securuty:
+  Database:
+    Check this link on updating the database privileges https://stackoverflow.com/questions/26598738/how-to-create-user-database-in-script-for-docker-postgres
+

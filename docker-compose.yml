@@ -1,0 +1,51 @@
+version: "3"
+
+services:
+  wc-db:
+    image: postgres:13.1
+    container_name: wc-db-postgres
+    ports:
+      - "5435:5432"
+    environment:
+      POSTGRES_USER: "wc-user"
+      POSTGRES_PASSWORD: "wc-some-secret"
+      POSTGRES_DB: "wc-db"
+    volumes:
+      - "db-data:/var/lib/postgresql/data"
+    networks:
+      - back-tier
+
+  wc-backend:
+    build:
+      context: ./backend
+    container_name: wc-backend
+    ports:
+      - "1337:80"
+    environment:
+      PORT: "80"
+      DATABASE_HOST: "wc-db-postgres"
+      DATABASE_PORT: "5432"
+      DATABASE_NAME: "wc-db"
+      DATABASE_USERNAME: "wc-user"
+      DATABASE_PASSWORD: "wc-some-secret"
+      DATABASE_SSL: "false" # Might need to check update ssl?
+    networks:
+      - back-tier
+      - front-tier
+
+  wc-frontend:
+    build:
+      context: ./frontend
+    ports:
+      - "5000:5000"
+    depends_on:
+      - wc-backend
+    networks:
+      - front-tier
+
+volumes:
+  db-data:
+
+networks:
+  front-tier:
+  back-tier:
