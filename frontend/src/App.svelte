@@ -1,8 +1,11 @@
 <script>
-	// import Navbar from "./component/Navbar.svelte"
 	import TailwindCss from "./TailwindCss.svelte";
 	import { Router } from "@roxi/routify";
   import { routes } from "../.routify/routes";
+
+	// get the value from rollup - replace
+	window.serverURL = "BACKEND_SERVER";
+
 </script>
 
 <!-- <Navbar /> -->
@@ -10,5 +13,4 @@
 </main>
 
 <Router {routes} />
-
 <TailwindCss/>

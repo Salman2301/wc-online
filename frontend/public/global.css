@@ -50,8 +50,12 @@ button {
 	outline: none;
 }
 
-button:disabled {
+button:disabled,
+button:disabled:hover	{
 	color: #999;
+  border: 1px solid #999999;
+  background-color: #cccccc;
+  color: #666666;
 }
 
 button:not(:disabled):active {

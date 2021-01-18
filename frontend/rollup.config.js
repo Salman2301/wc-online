@@ -1,6 +1,7 @@
 import svelte from "rollup-plugin-svelte";
 import commonjs from "@rollup/plugin-commonjs";
 import resolve from "@rollup/plugin-node-resolve";
+import replace from 'rollup-plugin-replace';
 import livereload from "rollup-plugin-livereload";
 import { terser } from "rollup-plugin-terser";
 import postcss from 'rollup-plugin-postcss';
@@ -44,9 +45,9 @@ export default {
     file: "public/build/bundle.js",
   },
   plugins: [
-    alias({
-      resolve: [".js", ".svelte", "/index.js"],
-      entries: [{ find: "@", replacement: path.resolve(__dirname + "/src") }],
+    replace({
+      // Todo Update the Production server URL
+      "BACKEND_SERVER": production ? "https://" : "http://localhost:1337"
     }),
     svelte({
 			preprocess: sveltePreprocess({
@@ -63,7 +64,12 @@ export default {
 				css.write('public/components.css');
 			}
 		}),
-		postcss({
+    alias({
+      resolve: [".js", ".svelte", "/index.js"],
+      entries: [{ find: "@", replacement: path.resolve(__dirname + "/src") }],
+    }),
+    
+    postcss({
 			extract: 'public/utils.css'
 		}),
 

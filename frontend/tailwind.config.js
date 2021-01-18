@@ -1,4 +1,5 @@
 const production = !process.env.ROLLUP_WATCH; // Or some other env var like NODE_ENV
+
 module.exports = {
   future: { // For Tailwind 2.0 upcoming changes
     purgeLayersByDefault: true, 
@@ -12,4 +13,7 @@ module.exports = {
     ], 
     enabled: production // Disable purge in dev
   },
+  variants: {
+    backgroundColor: ({ before }) => before(["disabled"]),
+  }
 };
