@@ -6,7 +6,7 @@ Huge Work in progress.
 
 1. strapi - Headless CMS
 2. postgres - Relational Database
-3. svelet  - Frontend Framework
+3. svelte  - Frontend Framework
 
 
 # Development
