@@ -1,7 +1,7 @@
 <script context="module" >
   import axios  from "axios";
   import { get  } from 'svelte/store';
-  import { isLoggedIn, user } from "../../../store.js";
+  import { isLoggedIn, user } from "@/store.js";
 
   export async function registerUser(registerOpts) {
     if( get(isLoggedIn) ) throw new Error("User is already logged In.");
@@ -20,9 +20,22 @@
     }
   }
 
+  export async function loginUser(loginOpts) {
+    if( get(isLoggedIn) ) throw new Error("User is already logged In.");
+    
+    const URL = `${serverURL}/auth/local`;
+
+    const res = await axios.post(URL, loginOpts);
+    
+    if( res && res.data && res.data.jwt ) user.set(res.data);
+
+    return res;
+  }
+
   export async function logOut() {
     user.set(null);
     localStorage.removeItem("user");
+    delete axios.defaults.headers.common["Authorization"];
   }
 
   // set default headers for logged In user
@@ -42,19 +55,14 @@
     
     let { response: { status }, config: { currUrl } } = error;
     
-    if (status !== 401)  return;
+    if (status !== 401 || status !== 403 )  return;
     
     const urlMe = `${serverURL}/users/me`;
     if( currUrl === urlMe) return;
 
     if ( !localStorage.getItem("user") ) return;
 
-    axios.get(urlMe)
-    .catch( e => {
-      console.log("Logging out");
-      localStorage.removeItem("user");
-      delete axios.defaults.headers.common["Authorization"];
-    });
+    axios.get(urlMe).catch(logOut);
 
     return Promise.reject(error);
   });

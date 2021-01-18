@@ -1,7 +1,7 @@
 <script>
   import { onMount } from "svelte";
   import { get  } from 'svelte/store';
-  import { goto } from "@roxi/routify";
+  import { goto, url } from "@roxi/routify";
   import { isLoggedIn } from "../store.js";
   import { registerUser } from "./_component/module/Auth.svelte";
   import Title from "./_component/basic/Title.svelte";
@@ -59,6 +59,8 @@
 <Form {handleOnSubmit}>
   <Title title="Register" />
   
+  <p class="text-gray-400 mb-4 text-sm text-right">Already an user? <a href={$url("/login")}>click here to login</a></p>
+
   <Input label="First Name"  id="inFName"  type="text"     bind:value={formData.fName}      />
   <Input label="Last Name"   id="inLName"  type="text"     bind:value={formData.lName}      />
   <Input label="Email"       id="inEmail"  type="email"    bind:value={formData.email}      />

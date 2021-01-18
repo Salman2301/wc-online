@@ -1,17 +1,27 @@
-
+To Use this Todo File, download `Todo+` extension
 
 
 Intiate:
-  ☐ Frontend
-    ✔ Svelte setup @done(21-01-16 14:40)
-  ☐ Backend
-    ✔ Sapper Setup @done(21-01-16 14:40)
-    ✔ Database Pg setup @done(21-01-16 14:40)
-      wc-db -u postgres -p postgres
-    ☐ Create a docker file
+  Frontend:
+    ✔ Implemenet Routify @done(21-01-17 11:48)
+    ☐ Create a Logo
+    ☐ Create an Auth pages ( register / login / forgot password ) 
+    ☐ Create a product page
+    ☐ Create a code editor
+    ☐ Show the output in an IFRAME
+
+  Backend:
+    ☐ Create Database for Project
+    ☐ Save the file in the backend
+    ☐ Process the file
+    ☐ Output the build link
+    ☐ Share the link 
+    GO:
+      ☐ Create a Go Docker to process svelte and output bundle.js file
+      ☐ Send bundle.js file to Bucket and store the ID in Database project
+
 
 
 Securuty:
   Database:
-    Check this link on updating the database privileges https://stackoverflow.com/questions/26598738/how-to-create-user-database-in-script-for-docker-postgres
-
+    ☐ Check this link on updating the database privileges https://stackoverflow.com/questions/26598738/how-to-create-user-database-in-script-for-docker-postgres
