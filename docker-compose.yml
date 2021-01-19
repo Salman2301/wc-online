@@ -38,6 +38,8 @@ services:
       context: ./frontend
     ports:
       - "5000:5000"
+    environment: 
+      BACKEND_SERVER: "http://wc-backend"
     depends_on:
       - wc-backend
     networks:
