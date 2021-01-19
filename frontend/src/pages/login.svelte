@@ -33,8 +33,9 @@
     try {
       disableSubmit = true;
       
-      await loginUser(formData);
-    
+      const res = await loginUser(formData);
+      if(!res) throw new Error();
+      $goto("/projects");
     }
     catch(e) {
       disableSubmit = false;

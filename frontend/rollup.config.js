@@ -5,7 +5,7 @@ import replace from 'rollup-plugin-replace';
 import livereload from "rollup-plugin-livereload";
 import { terser } from "rollup-plugin-terser";
 import postcss from 'rollup-plugin-postcss';
-import sveltePreprocess from "svelte-preprocess";1
+import sveltePreprocess from "svelte-preprocess";
 import alias from "rollup-plugin-alias";
 import path from "path";
 
@@ -47,14 +47,12 @@ export default {
   plugins: [
     replace({
       // Todo Update the Production server URL
-      "BACKEND_SERVER": production ? "https://" : "http://localhost:1337"
+      "BACKEND_SERVER": process.env.BACKEND_SERVER || "http://localhost:1337"
     }),
     svelte({
 			preprocess: sveltePreprocess({
 				sourceMap: !production,
-				postcss: {
-					plugins: [require("tailwindcss"), require("autoprefixer")],
-				},
+				postcss: true, // { 	plugins: [require("tailwindcss"), require("autoprefixer")], }
 			}),
       compilerOptions: {
         // enable run-time checks when not in production
