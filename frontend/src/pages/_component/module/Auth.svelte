@@ -1,5 +1,6 @@
 <script context="module" >
   import axios  from "axios";
+  import Cookie from "js-cookie";
   import { get  } from 'svelte/store';
   import { isLoggedIn, user } from "@/store.js";
 
@@ -34,7 +35,7 @@
 
   export async function logOut() {
     user.set(null);
-    sessionStorage.removeItem("user");
+    Cookie.remove("user");
     delete axios.defaults.headers.common["Authorization"];
   }
 
@@ -45,7 +46,7 @@
     
     const { jwt:token} = userVal ;
     const authHeader = `Bearer ${token}`;
-    sessionStorage.setItem("user", JSON.stringify(userVal) );
+    Cookie.set("user", JSON.stringify(userVal));
     axios.defaults.headers.common["Authorization"] = authHeader;
   });
 
@@ -60,7 +61,10 @@
     const urlMe = `${serverURL}/users/me`;
     if( currUrl === urlMe) return;
 
-    if ( !sessionStorage.getItem("user") ) return;
+    if ( !Cookie.get("user") ) {
+      logOut();
+      return;
+    };
 
     axios.get(urlMe).catch(logOut);
 
