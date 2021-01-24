@@ -1,6 +1,8 @@
-
-<style global lang="postcss">
+<style global>
+  /* purgecss start ignore */
 	@tailwind base;
 	@tailwind components;
-	@tailwind utilities;  
+  /* purgecss end ignore */
+
+	@tailwind utilities;
 </style>

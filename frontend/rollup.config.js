@@ -4,15 +4,22 @@ import resolve from "@rollup/plugin-node-resolve";
 import replace from 'rollup-plugin-replace';
 import livereload from "rollup-plugin-livereload";
 import { terser } from "rollup-plugin-terser";
-import postcss from 'rollup-plugin-postcss';
 import sveltePreprocess from "svelte-preprocess";
 import alias from "rollup-plugin-alias";
 import path from "path";
-import autoPreprocess from 'svelte-preprocess';
 import typescript from '@rollup/plugin-typescript';
 
 const production = !process.env.ROLLUP_WATCH;
 
+const preprocess = sveltePreprocess({
+  sourceMap: !production,
+  postcss: true
+});
+
+const envs = {
+  // Todo Update the Production server URL
+  "BACKEND_SERVER": process.env.BACKEND_SERVER || "http://localhost:1337"
+}
 function serve() {
   let server;
 
@@ -48,33 +55,24 @@ export default {
   },
   plugins: [
     replace({
-      // Todo Update the Production server URL
-      "BACKEND_SERVER": process.env.BACKEND_SERVER || "http://localhost:1337"
+      ...envs
     }),
     svelte({
-			preprocess: sveltePreprocess({
-				sourceMap: !production,
-				postcss: true, // { 	plugins: [require("tailwindcss"), require("autoprefixer")], }
-      }),
-      // preprocess: autoPreprocess(),
-      // preprocess: sveltePreprocess(),
-			compilerOptions: {
-        // enable run-time checks when not in production
-        dev: !production,
-      },
-      emitCss: true,
-			css: css => {
-				css.write('public/components.css');
-			}
+      preprocess,
+      dev: !production,
+      emitCss: false,
+			css: _=>_.write('bundle.css')
 		}),
     alias({
       resolve: [".js", ".svelte", "/index.js"],
       entries: [{ find: "@", replacement: path.resolve(__dirname + "/src") }],
     }),
-    
-    postcss({
-			extract: 'public/utils.css'
-    }),
+    // if rollup can't live reload after
+    // css changed try uncommenting this postcss lines
+    // postcss({
+		// 	extract: 'public/utils.css'
+    // }),
+
     // we'll extract any component CSS out into
     // a separate file - better for performance
     // css({ output: "bundle.css" }),
@@ -91,7 +89,7 @@ export default {
     commonjs(),
 		typescript({
 			sourceMap: !production,
-			inlineSources: !production
+			// inlineSources: !production
 		}),
 
     // In dev mode, call `npm run start` once
@@ -108,5 +106,5 @@ export default {
   ],
   watch: {
     clearScreen: false,
-  },
+  }
 };

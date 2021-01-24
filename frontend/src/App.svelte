@@ -8,7 +8,6 @@
 
 </script>
 
-<!-- <Navbar /> -->
 <main>
 </main>
 
