@@ -53,7 +53,7 @@
             <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
             <MenuItem path="/index" label="Home" />
             <MenuItem path="/dashboard" label="Dashboard" />
-            <MenuItem path="/projects" label="Projects" />
+            <MenuItem path="/project" label="Projects" />
           </div>
         </div>
       </div>
@@ -100,7 +100,7 @@
     <div class="sm:hidden px-2 pt-2 pb-3 space-y-1" on:click={()=>showMenuMobile=false}>
       <MenuItem label="Home" path="/index" isMobile={true} />
       <MenuItem label="Dashboard" path="/dashboard" isMobile={true} />
-      <MenuItem label="Projects" path="/projects" isMobile={true} />
+      <MenuItem label="Projects" path="/project" isMobile={true} />
     </div>
   {/if}
 </nav>

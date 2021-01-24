@@ -34,7 +34,7 @@
 
   export async function logOut() {
     user.set(null);
-    localStorage.removeItem("user");
+    sessionStorage.removeItem("user");
     delete axios.defaults.headers.common["Authorization"];
   }
 
@@ -45,7 +45,7 @@
     
     const { jwt:token} = userVal ;
     const authHeader = `Bearer ${token}`;
-    localStorage.setItem("user", JSON.stringify(userVal) );
+    sessionStorage.setItem("user", JSON.stringify(userVal) );
     axios.defaults.headers.common["Authorization"] = authHeader;
   });
 
@@ -60,7 +60,7 @@
     const urlMe = `${serverURL}/users/me`;
     if( currUrl === urlMe) return;
 
-    if ( !localStorage.getItem("user") ) return;
+    if ( !sessionStorage.getItem("user") ) return;
 
     axios.get(urlMe).catch(logOut);
 

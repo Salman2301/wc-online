@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
 	import TailwindCss from "./TailwindCss.svelte";
 	import { Router } from "@roxi/routify";
   import { routes } from "../.routify/routes";

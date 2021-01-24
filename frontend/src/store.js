@@ -7,7 +7,7 @@ export const isLoggedIn = derived(user, $user => !!($user && $user.jwt ));
 function checkLocalUser() {
   if( typeof window === undefined ) return null;
 
-  let storage = localStorage.getItem("user")
+  let storage = sessionStorage.getItem("user")
 
   if( typeof storage !== "string" ) return null;
 

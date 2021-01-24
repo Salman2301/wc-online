@@ -35,7 +35,7 @@
       
       const res = await loginUser(formData);
       if(!res) throw new Error();
-      $goto("/projects");
+      $goto("/project");
     }
     catch(e) {
       disableSubmit = false;
