@@ -62,6 +62,7 @@ export default {
         // enable run-time checks when not in production
         dev: !production,
       },
+      emitCss: true,
 			css: css => {
 				css.write('public/components.css');
 			}
